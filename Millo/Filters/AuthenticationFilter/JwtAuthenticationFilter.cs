@@ -11,6 +11,12 @@ using System.Net.Http;
 using System.Security.Cryptography.X509Certificates;
 using System.Web;
 using Millo.Filters.AuthenticationFilter;
+using System.Text;
+using System.Linq;
+using System.Collections.Generic;
+using Millo.BLL;
+using Millo.Models;
+using Millo.DAL;
 
 namespace Millo.Filters.AuthenticationFilter
 {
@@ -34,7 +40,7 @@ namespace Millo.Filters.AuthenticationFilter
         /// Set to the Authorization header Scheme value that this filter is intended to support
         /// </summary>
         public const string SupportedTokenScheme = "Bearer";
-
+       
         // TODO: Decide if your filter should allow multiple instances per controller or
         //       per-method; set AllowMultiple to true if so
         public bool AllowMultiple { get { return false; } }
@@ -42,8 +48,8 @@ namespace Millo.Filters.AuthenticationFilter
         // TODO: JWT tokens will need to validate the audience the token was meant for,
         //  the issuer of the token, and the signature.  Below static values will
         //  probably be read in from external configuration in a real world scenario.
-        private readonly string _audience = "https://my.company.com";
-        private readonly string _validIssuer = "http://my.tokenissuer.com";
+        private  string _audience = "ashish";
+        private readonly string _validIssuer = "Millo";
 
         private readonly X509SecurityKey _signingCredentials;
 
@@ -68,9 +74,9 @@ namespace Millo.Filters.AuthenticationFilter
         {
             // Create a signing token from the secret key
             // we'll load our certificate from a file for this example
-            var filePath = HttpContext.Current.Server.MapPath("~/App_Data/CourseCert.cer");
-            var certificate = new X509Certificate2(filePath);
-            _signingCredentials = new X509SecurityKey(certificate);
+            //var filePath = HttpContext.Current.Server.MapPath("~/App_Data/CourseCert.cer");
+            //var certificate = new X509Certificate2(filePath);
+            //_signingCredentials = new X509SecurityKey(certificate);
         }
 
         /// <summary>
@@ -180,9 +186,23 @@ namespace Millo.Filters.AuthenticationFilter
             HttpRequestMessage request, 
             CancellationToken cancellationToken)
         {
+            string _publicKey = "PAA/AHgAbQBsACAAdgBlAHIAcwBpAG8AbgA9ACIAMQAuADAAIgAgAGUAbgBjAG8AZABpAG4AZwA9ACIAdQB0AGYALQAxADYAIgA/AD4ADQAKADwAUgBTAEEAUABhAHIAYQBtAGUAdABlAHIAcwAgAHgAbQBsAG4AcwA6AHgAcwBpAD0AIgBoAHQAdABwADoALwAvAHcAdwB3AC4AdwAzAC4AbwByAGcALwAyADAAMAAxAC8AWABNAEwAUwBjAGgAZQBtAGEALQBpAG4AcwB0AGEAbgBjAGUAIgAgAHgAbQBsAG4AcwA6AHgAcwBkAD0AIgBoAHQAdABwADoALwAvAHcAdwB3AC4AdwAzAC4AbwByAGcALwAyADAAMAAxAC8AWABNAEwAUwBjAGgAZQBtAGEAIgA+AA0ACgAgACAAPABFAHgAcABvAG4AZQBuAHQAPgBBAFEAQQBCADwALwBFAHgAcABvAG4AZQBuAHQAPgANAAoAIAAgADwATQBvAGQAdQBsAHUAcwA+AHgAUQBqAFoAQwBnAHUATQA4AEkAKwBKAC8AZQB0AGIAagBBAGsAWgBHAC8AcgArAHEATQBpAFcATwBoAGcAZwBoAGMANQB1ADMAOABLAEIAbABMAG8AQwBGAGwAQQBaAGkAUAB0AGQAZQBqADAAUwB3AGUAcABsAFUAcwBPAEIAUAA1AEQAZwBWAGIAUQA0AFAAVQArAFMAQQBrAFAAcwB3AFIATQBWADEAawBtAFoAawBJAG4ANQBVADUAbgB6ADMAOQBXAGwATABMAEMATABSAHQAZABMAEIARQAzAE0ASQBaAE0AegBVAG0AZwBCADUAYQBiAGYAcgBSAGMAVgB6ADMAYgB5AG8AWgBTAFMARgBKAFAAbABIAHUAUwBzAEIANQBsAEEAMwBsAE8ARABwAHMAdwAvAGsATQBCAGsAMQAyADgAegBwAGsAMQBGAGQAdQBBAEUAMwByADMAOABUAHgAVgB3AFgAWABuAGEAawBXACsAOABlAGcASwBNAGEAYQBNADYAaQAwADEAWQBUAGEAawBKAHgASQBJAGgARQBZAEIAeABFAG8AOABLADcALwBQAFIARQBKAGgARQBJAGcANAB0AFoAWABZAEgARQBpAG4AQQB5AEIAUgBYADcAdwBpAEIAWABrADAAOABiAHoAUAAwAG0AVQBoAHMAcwBsAHoAbQBmAEEARQBqAHQAOABsAEUARwBhAGYAWgBmAHgASQA3AG8AbQAzAFcATABmAGwASABwAFIAcABpAGMAbwA3AEMAMgBlAGUATABLAHYAQQBuAHYAVgBjAFUAbQBJADEANgA1AE4ASQBqAGEAZABBAHQAVgBIAE0ATgAxAEIAWgA5AG8AaABtAGYAMQBKADUAaQBzAGUAawBvAHcAUABTAGQANABRAD0APQA8AC8ATQBvAGQAdQBsAHUAcwA+AA0ACgA8AC8AUgBTAEEAUABhAHIAYQBtAGUAdABlAHIAcwA+AA==";
+           
+
+
             var jwtHandler = new JwtSecurityTokenHandler();
             // verify this is a valid JWT token
             var isValidJwt = jwtHandler.CanReadToken(credentials);
+            ClaimsUserManager cum = new ClaimsUserManager();
+            string Userid=  cum.getClaimValue("Id", credentials);
+            ManageUser manageUser = new ManageUser();
+            var user=manageUser.GetUserById(Userid);
+            _publicKey = user.PublicToken;
+            _audience = user.UserName;
+            var _secret = Encoding.Unicode.GetBytes(_publicKey);
+            var securityKey = new Microsoft.IdentityModel.Tokens.SymmetricSecurityKey(_secret);
+            var signingCredentials = new Microsoft.IdentityModel.Tokens.SigningCredentials(
+                        securityKey, SecurityAlgorithms.HmacSha256Signature);
             if (!isValidJwt)
                 return null;
 
@@ -192,22 +212,22 @@ namespace Millo.Filters.AuthenticationFilter
             //   certain features (ex. OAuth).
             TokenValidationParameters validationParameters = new TokenValidationParameters
             {
-                ValidateAudience = true,
+                ValidateAudience = false,
                 ValidAudiences = new[] { _audience },
 
-                ValidateIssuer = true,
+                ValidateIssuer = false,
                 ValidIssuers = new[] { _validIssuer },
 
                 RequireSignedTokens = true,
                 ValidateIssuerSigningKey = true,
-                IssuerSigningKeys = new[] { _signingCredentials },
+                IssuerSigningKeys = new[] { securityKey },
 
-                RequireExpirationTime = true,
-                ValidateLifetime = true,
-                ClockSkew = TimeSpan.FromSeconds(5),  // limit the lifetime padding
-                
-                NameClaimType = ClaimTypes.NameIdentifier,
-                AuthenticationType = SupportedTokenScheme
+                //RequireExpirationTime = true,
+                //ValidateLifetime = true,
+                //ClockSkew = TimeSpan.FromHours(500),  // limit the lifetime padding
+
+                //NameClaimType = ClaimTypes.NameIdentifier,
+                //AuthenticationType = SupportedTokenScheme
             };
 
             SecurityToken validatedToken = new JwtSecurityToken();

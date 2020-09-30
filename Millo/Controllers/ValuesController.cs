@@ -8,6 +8,8 @@ using System.Web.Routing;
 using Millo.Filters.AuthenticationFilter;
 using Millo.Handlers;
 using Millo.Models;
+using System.Security.Principal;
+using System.Security.Claims;
 
 namespace Millo.Controllers
 {
@@ -117,6 +119,28 @@ namespace Millo.Controllers
         // DELETE: api/Values/5
         public void Delete(int id)
         {
+        }
+        [Route("GetIPrincipal")]
+        [Authorize]
+        [ClientCacheControlFilter(ClientCacheControl.Private,600)]
+        public IEnumerable<string> CheckIprincipal()
+        {
+            var identity = User.Identity as ClaimsIdentity;
+            string[] arraystring = new string[50];
+            int x=0;
+            foreach (var claim in identity.Claims)
+            {
+                arraystring[x] = claim.Type.ToString();
+                ++x;
+                arraystring[x] = claim.Value;
+                ++x;
+                //if (claim.Type.Contains("EmailAddress"))
+                //{
+                //    ViewBag.EmailName = claim.Value;
+                //}
+            }
+            
+            return arraystring;
         }
     }
 }

@@ -79,6 +79,67 @@ namespace Millo.Controllers
             return token;
             //var x = GetPrivateAndPublicKey();
         }
+        [HttpGet,Route("GetToken")]
+        [Authorize]
+        
+        public async Task<string> Login()
+        {
+            var identity = User.Identity as ClaimsIdentity;
+            //var claims = identity.Claims;
+
+            User user = new User();
+            //user.UserId = claims.Where(x => x.Type == "Id");
+            var x = identity.NameClaimType;
+            user.UserName = identity.Claims.Where(c => c.Type.Contains("UserName"))
+                   .Select(c => c.Value).SingleOrDefault();
+            user.Role = identity.Claims.Where(c => c.Type==ClaimTypes.Role)
+                               .Select(c => c.Value).SingleOrDefault();
+            user.Email = identity.Claims.Where(c => c.Type.Contains("Email") )
+                               .Select(c => c.Value).SingleOrDefault();
+             user.PhoneNumber = identity.Claims.Where(c => c.Type.Contains("PhoneNumber"))
+                               .Select(c => c.Value).SingleOrDefault();
+            var issuer = identity.Claims.Where(c => c.Type.Contains("Issuer"))
+                              .Select(c => c.Value).SingleOrDefault();
+             var audience = identity.Claims.Where(c => c.Type.Contains("Audience"))
+                              .Select(c => c.Value).SingleOrDefault();
+             user.UserId = Convert.ToInt32( identity.Claims.Where(c => c.Type.Contains("Id"))
+                              .Select(c => c.Value).SingleOrDefault());
+             user.FullAddress = identity.Claims.Where(c => c.Type.Contains("FullAddress"))
+                              .Select(c => c.Value).SingleOrDefault();
+             user.PublicToken = identity.Claims.Where(c => c.Type.Contains("PublicToken"))
+                              .Select(c => c.Value).SingleOrDefault();
+             user.PrivateToken = identity.Claims.Where(c => c.Type.Contains("PrivateToken"))
+                              .Select(c => c.Value).SingleOrDefault();
+             user.PasswordHash = identity.Claims.Where(c => c.Type.Contains("PasswordHash"))
+                              .Select(c => c.Value).SingleOrDefault();
+             user.PasswordSalt = identity.Claims.Where(c => c.Type.Contains("PasswordSalt"))
+                              .Select(c => c.Value).SingleOrDefault();
+            JwtRsaTokenManager tokenManager = new JwtRsaTokenManager();
+            string token = await tokenManager.CreateToken(user);
+
+            return token;
+        }
+
+        [HttpGet,Route("DecodeToken")]
+        [Authorize]
+
+        public async Task<string> TokenDecode()
+        {
+            var identity = User.Identity as ClaimsIdentity;
+            //var claims = identity.Claims;
+            ClaimsUserManager claimsUserManager = new ClaimsUserManager();
+            User user = await claimsUserManager.ConvertClaimIdentityToUser(identity);
+
+            JwtRsaTokenManager tokenManager = new JwtRsaTokenManager();
+            string token = await tokenManager.CreateToken(user);
+            var handler = new JwtSecurityTokenHandler();
+            var ReturnedToken = handler.ReadJwtToken(token);
+            string[] id =new string[]{ ReturnedToken.Claims.Where(c => c.Type.Contains("id"))
+                   .Select(c => c.Value).SingleOrDefault() };
+            //var id1 = ReturnedToken.Claims;
+            return id.ToString();
+        }
+
         //public Dictionary<string,string> GetPrivateAndPublicKey()
         //{
         //    Dictionary<string, string> keys = new Dictionary<string, string>() ;

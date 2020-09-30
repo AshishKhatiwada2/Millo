@@ -57,6 +57,12 @@ namespace Millo.BLL
             user = milloDb.Users.Where(x => x.UserName == userName || x.Email == userName).FirstOrDefault();
             return user;
         }
+        public User GetUserById(string id)
+        {
+            User user;
+            user = milloDb.Users.Where(x => x.UserId == Convert.ToInt32(id)).FirstOrDefault();
+            return user;
+        }
         public async Task<string> CreateRandomPassword(int PasswordLength)
         {
             String _allowedChars = "abcdefghijkmnopqrstuvwxyzABCDEFGHJKLMNOPQRSTUVWXYZ23456789";

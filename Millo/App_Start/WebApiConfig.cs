@@ -38,6 +38,7 @@ namespace Millo
             config.MessageHandlers.Add(new RemoveBadHeadersHandlers());
             config.MessageHandlers.Add(new ApiKeyHeaderHandler());
             config.Filters.Add(new RequireHttpsAttribute());
+            config.Filters.Add(new JwtAuthenticationFilterAttribute());
 
             // Exception Handling 
             config.Services.Add(typeof(IExceptionLogger), new GlobalExceptionLogger());

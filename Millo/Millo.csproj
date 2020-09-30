@@ -119,14 +119,17 @@
   <ItemGroup>
     <Compile Include="App_Start\SwaggerConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="BLL\ClaimsUserManager.cs" />
     <Compile Include="BLL\JwtRsaTokenManager.cs" />
     <Compile Include="BLL\PasswordManager.cs" />
+    <Compile Include="BLL\TokenToUserDbConverter.cs" />
     <Compile Include="Constraints\EnumerationConstraint.cs" />
     <Compile Include="Controllers\CertificateController.cs" />
     <Compile Include="Controllers\ExceptionController.cs" />
     <Compile Include="Controllers\ProductsController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
+    <Compile Include="DAL\ManageUser.cs" />
     <Compile Include="Exceptions\GlobalExceptionHandler.cs" />
     <Compile Include="Exceptions\GlobalExceptionLogger.cs" />
     <Compile Include="Filters\AuthenticationFilter\AddChallengeOnUnauthorizedResult.cs" />

@@ -162,16 +162,22 @@ namespace Millo.Filters.AuthenticationFilter
             //       about the subject. 
             IList<Claim> claimCollection = new List<Claim>
             {
-                new Claim(ClaimTypes.Name, user.UserName),
-                new Claim(ClaimTypes.Role,user.Role),
-                new Claim(ClaimTypes.Email,user.Email),
-                new Claim(ClaimTypes.MobilePhone,user.PhoneNumber),
-                new Claim(ClaimTypes.StreetAddress,user.FullAddress),
+
+                new Claim("Id",user.UserId.ToString()),
+                new Claim(type: "UserName", user.UserName),
+                new Claim(type: ClaimTypes.Role,user.Role),
+                new Claim(type: "Email",user.Email),
+                new Claim(type: "PhoneNumber",user.PhoneNumber),
+                new Claim(type: "FullAddress",user.FullAddress),
                 // you can add other standard or custom claims here based on your username/password lookup...
-                new Claim(ClaimTypes.AuthenticationInstant, DateTime.UtcNow.ToString("o")),
-                new Claim("FullName",user.FullAddress),
-                new Claim("Issuer", "Ashish Khatiwada"),
-                new Claim("Audience",user.UserName)
+                new Claim(type: ClaimTypes.AuthenticationInstant, DateTime.UtcNow.ToString("o")),
+                new Claim(type: "FullName",user.FullAddress),
+                new Claim(type: "Issuer", "Ashish Khatiwada"),
+                new Claim(type: "Audience",user.UserName),
+                new Claim(type: "PublicToken",user.PublicToken),
+                new Claim(type: "PrivateToken",user.PrivateToken),
+                new Claim(type: "PasswordSalt",user.PasswordSalt),
+                new Claim(type: "PasswordHash",user.PasswordHash)
                 // etc.
             };
             // we'll include the specific token scheme as "authentication type" that was successful 

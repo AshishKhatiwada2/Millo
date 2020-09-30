@@ -41,19 +41,23 @@ namespace Millo.BLL
             JwtTokenCreator jwtTokenCreator = new JwtTokenCreator();
             string PrivateKey = user.PrivateToken;
 
-            var claims = new Claim[]
-           {
-               new Claim("Id",user.UserId.ToString()),
-                new Claim("UserName",user.UserName),
-                new Claim("Role",user.Role),
-                new Claim("FullName",user.FirstName + " "+user.LastName),
-                
-           };
+            // var claims = new Claim[]
+            //{
+            //    new Claim(type:"id",user.UserId.ToString()),
+            //     new Claim(type:"UserName",user.UserName),
+            //     new Claim(type:ClaimTypes.Role,user.Role),
+            //     new Claim(type:"FullName",user.FirstName + " "+user.LastName),
+            //     new Claim(type:ClaimTypes.Email,user.Email)
+
+            //};
+            ClaimsUserManager claimsUserManager = new ClaimsUserManager();
+            var claims=claimsUserManager.ConvertUserToClaimArray(user);
             await Task.Run(() =>
-            jwtTokenCreator.writeToken(PrivateKey, claims, user.UserName)
+            token =jwtTokenCreator.writeToken(PrivateKey, claims, user.UserName)
             );
             return token;
         }
+        
     }
 
 
