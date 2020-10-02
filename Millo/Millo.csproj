@@ -176,9 +176,47 @@
       <DependentUpon>202009121945048_addedUserLogin.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
-    <Compile Include="Models\ComplexTypeDtos.cs" />
-    <Compile Include="Models\MilloDbContext.cs" />
+    <Compile Include="Models\Bill.cs" />
+    <Compile Include="Models\BillType.cs" />
+    <Compile Include="Models\Branch.cs" />
+    <Compile Include="Models\CashBank.cs" />
+    <Compile Include="Models\Logic\ComplexTypeDtos.cs" />
+    <Compile Include="Models\Currency.cs" />
+    <Compile Include="Models\Customer.cs" />
+    <Compile Include="Models\CustomerType.cs" />
+    <Compile Include="Models\ErrorViewModel.cs" />
+    <Compile Include="Models\FriendRelation.cs" />
+    <Compile Include="Models\Gender.cs" />
+    <Compile Include="Models\GoodsReceivedNote.cs" />
+    <Compile Include="Models\Invoice.cs" />
+    <Compile Include="Models\InvoiceType.cs" />
+    <Compile Include="Models\Location.cs" />
+    <Compile Include="Models\Logic\MilloDbContext.cs" />
+    <Compile Include="Models\MilloEvent.cs" />
+    <Compile Include="Models\MilloGroup.cs" />
+    <Compile Include="Models\MilloProfile.cs" />
+    <Compile Include="Models\NumberSequence.cs" />
+    <Compile Include="Models\PaymentReceive.cs" />
+    <Compile Include="Models\PaymentType.cs" />
+    <Compile Include="Models\PaymentVoucher.cs" />
+    <Compile Include="Models\Product.cs" />
+    <Compile Include="Models\ProductType.cs" />
+    <Compile Include="Models\PurchaseOrder.cs" />
+    <Compile Include="Models\PurchaseOrderLine.cs" />
+    <Compile Include="Models\PurchaseType.cs" />
+    <Compile Include="Models\SalesOrder.cs" />
+    <Compile Include="Models\SalesOrderLine.cs" />
+    <Compile Include="Models\SalesType.cs" />
+    <Compile Include="Models\Shipment.cs" />
+    <Compile Include="Models\ShipmentType.cs" />
+    <Compile Include="Models\UnitOfMeasure.cs" />
     <Compile Include="Models\User.cs" />
+    <Compile Include="Models\UserProfile.cs" />
+    <Compile Include="Models\UserStatus.cs" />
+    <Compile Include="Models\Vendor.cs" />
+    <Compile Include="Models\VendorType.cs" />
+    <Compile Include="Models\Warehouse.cs" />
+    <Compile Include="Models\WorkPlace.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
