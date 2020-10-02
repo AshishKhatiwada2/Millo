@@ -185,13 +185,19 @@
     <Compile Include="Models\Account\Customer.cs" />
     <Compile Include="Models\Account\CustomerType.cs" />
     <Compile Include="Models\Account\ErrorViewModel.cs" />
+    <Compile Include="Models\Social\Affiliation.cs" />
+    <Compile Include="Models\Social\AffiliationType.cs" />
+    <Compile Include="Models\Social\EventMembership.cs" />
     <Compile Include="Models\Social\FriendRelation.cs" />
     <Compile Include="Models\Social\Gender.cs" />
     <Compile Include="Models\Account\GoodsReceivedNote.cs" />
     <Compile Include="Models\Account\Invoice.cs" />
     <Compile Include="Models\Account\InvoiceType.cs" />
+    <Compile Include="Models\Social\GroupMembership.cs" />
     <Compile Include="Models\Social\Location.cs" />
     <Compile Include="Models\Logic\MilloDbContext.cs" />
+    <Compile Include="Models\Social\LookingFor.cs" />
+    <Compile Include="Models\Social\MembershipType.cs" />
     <Compile Include="Models\Social\MilloEvent.cs" />
     <Compile Include="Models\Social\MilloGroup.cs" />
     <Compile Include="Models\Social\MilloProfile.cs" />
@@ -211,13 +217,18 @@
     <Compile Include="Models\Account\Shipment.cs" />
     <Compile Include="Models\Account\ShipmentType.cs" />
     <Compile Include="Models\Account\UnitOfMeasure.cs" />
+    <Compile Include="Models\Social\PhotoAlbum.cs" />
+    <Compile Include="Models\Social\PhotoTag.cs" />
+    <Compile Include="Models\Social\RelationshipStatus.cs" />
+    <Compile Include="Models\Social\RSVPStatus.cs" />
+    <Compile Include="Models\Social\School.cs" />
     <Compile Include="Models\Social\User.cs" />
     <Compile Include="Models\Social\UserProfile.cs" />
     <Compile Include="Models\Social\UserStatus.cs" />
     <Compile Include="Models\Account\Vendor.cs" />
     <Compile Include="Models\Account\VendorType.cs" />
     <Compile Include="Models\Account\Warehouse.cs" />
-    <Compile Include="Models\Account\WorkPlace.cs" />
+    <Compile Include="Models\Social\WorkPlace.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
