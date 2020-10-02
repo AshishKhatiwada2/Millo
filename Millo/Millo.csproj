@@ -175,6 +175,10 @@
     <Compile Include="Migrations\202009121945048_addedUserLogin.designer.cs">
       <DependentUpon>202009121945048_addedUserLogin.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202010020422463_added-account-and-social-classes.cs" />
+    <Compile Include="Migrations\202010020422463_added-account-and-social-classes.designer.cs">
+      <DependentUpon>202010020422463_added-account-and-social-classes.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Account\Bill.cs" />
     <Compile Include="Models\Account\BillType.cs" />
@@ -259,6 +263,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202009121945048_addedUserLogin.resx">
       <DependentUpon>202009121945048_addedUserLogin.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202010020422463_added-account-and-social-classes.resx">
+      <DependentUpon>202010020422463_added-account-and-social-classes.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
